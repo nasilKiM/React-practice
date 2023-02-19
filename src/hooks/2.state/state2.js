@@ -147,23 +147,14 @@ function State2() {
         <p>
           댓글 수: <span>{post.Comments.length}</span>
         </p>
-        <input value={user} onChange={AddUser} placeholder="작성자" />
-        <input value={content} onChange={AddContent} placeholder="댓글 내용" />
-        <button onClick={AddCommentBtn}>댓글 작성</button>
+        <input placeholder="작성자" />
+        <input placeholder="댓글 내용" />
+        <button>댓글 작성</button>
       </div>
       <S.CommentList>
         {/* list */}
         {/* 예시 데이터 */}
-        {post.Comments.map((user) => {
-          return (
-            <Comment
-              user={user}
-              content={content}
-              onEditCom={onEditCom}
-              handleDelete={handleDelete}
-            />
-          );
-        })}
+        <Comment />
       </S.CommentList>
     </S.Wrapper>
   );

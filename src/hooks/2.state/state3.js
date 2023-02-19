@@ -58,7 +58,7 @@ function State3() {
     <>
       <h1>문제3</h1>
       <h2>상품 목록</h2>
-      <ul>
+      <S.Item>
         {/* list */}
         {/* 예시 데이터 */}
         {productList.products.map((detail) => (
@@ -66,7 +66,7 @@ function State3() {
           // <ProductCard detail={detail} onClick = () => onNavigate={onNavigateDetailPage} />
           // <ProductCard key={product.id} product={product} onNavigate={onNavigateDetailPage} />
         ))}
-      </ul>
+      </S.Item>
     </>
   );
 }
