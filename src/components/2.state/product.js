@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
-function ProductCard({ onNavigate }) {
+function ProductCard({ detail, onNavigate }) {
+  const handleClick = () => {
+    onNavigate(detail.productNumber);
+  };
+  console.log("=====>" + detail.productNumber);
   return (
-    <S.Item onClick={onNavigate}>
-      <h4>구멍난 양말</h4>
-      <p>상품번호: 302012</p>
-      <p>가격: 3000원</p>
-      <p>사이즈: X, M, L</p>
-      <p>평점: 4.5</p>
-      <p>리뷰: 14</p>
+    <S.Item onClick={handleClick}>
+      {/*<S.Item onClick={handleClick}>*/}
+      <h4>{detail.productName}</h4>
+      <p>상품번호: {detail.productNumber}</p>
+      <p>가격: {Number(detail.productPrice).toLocaleString()}원</p>
+      {/*toLocalString()으로 되는 방법 찾아보기*/}
+      <p>사이즈: {detail.productSize}</p>
+      <p>평점: {detail.productRating}</p>
+      <p>리뷰: {detail.productReview}</p>
     </S.Item>
   );
 }
