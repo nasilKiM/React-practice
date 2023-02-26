@@ -31,31 +31,29 @@ import { useState, useRef, useCallback } from "react";
         따라서 useRef는 사용하여 해당 문구의 색상을 변경해보세요 :)
   */
 function Q2() {
-  const [forceRender, setForceRender] = useState(false);
   const arr = useRef([]);
-  const [inputs, setInputs] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
-
-  const increaseList = () => {
-    console.log(arr.current.value);
-    setInputs([...arr.current.value, inputs]);
-    arr.current.focus();
-    console.log(...arr.current.value);
-    // li를 추가하는거 하기.
-  };
-
-  const handleView = () => {
-    if (arr.current.value === "") {
-      setIsVisible(false);
-    } else setIsVisible(true);
-  };
+  const [forceRender, setForceRender] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [submitState, setSubmitState] = useState(false);
 
   const onAddList = () => {
+    if (arr.current.length > 0) {
+      setSubmitState(true);
+    }
+  };
+  const onChangeInputValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const increaseList = () => {
     setForceRender((prev) => !prev);
-    arr.push(arr.current.value);
+    if (inputValue.length > 0) {
+      arr.current.push(inputValue);
+    }
   };
 
   //2-2
+  // 추가 후에 제출을 누르고 나면 추가할때마다 제출리스트에 바로 쌓이는 오류..
   const colorRef = useRef(null);
   const changeColor = () => {
     colorRef.current.style.color = "orange";
@@ -67,14 +65,7 @@ function Q2() {
       <div>
         <h2>문제 2-1</h2>
         <p>
-          <input
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-            inputs={inputs}
-            ref={arr}
-            type="text"
-          />
+          <input onChange={onChangeInputValue} />
         </p>
         <p>
           <button onClick={increaseList}>추가</button>
@@ -82,13 +73,11 @@ function Q2() {
         <p>
           <button onClick={onAddList}>제출</button>
         </p>
-        <p>제출된 목록이 없습니다</p>
+        {submitState || <p>제출된 목록이 없습니다</p>}
 
         <ul>
           {/* -- list -- */}
-          {arr.current.map((el) => (
-            <li>{el}</li>
-          ))}
+          {submitState && arr.current.map((el) => <li>{el}</li>)}
         </ul>
       </div>
       <div>
